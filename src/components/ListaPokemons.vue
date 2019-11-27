@@ -3,9 +3,9 @@
         <div class="searchbar">
             <input type="text" v-model="search" placeholder="Filtro" />
             <select @change="pageDez">
-                <option value="1">20 Páginas</option>            
+                <option value="1">20 Páginas</option>
                 <option value="2">Scroll infinito</option>
-            
+
             </select>
         </div>
         <div class="list">
@@ -19,12 +19,12 @@
                 <i class="fas fa-spinner fa-spin"></i>
             </div>
 
-       
+
         </div>
 
-             <div class="carregar">
-               <button class="btn btn-primary" @click="next">CARREGAR MAIS</button>
-            </div>
+        <div class="carregar">
+            <button class="btn btn-primary" @click="next">CARREGAR MAIS</button>
+        </div>
     </div>
 </template>
 
@@ -54,13 +54,13 @@
         methods: {
             pageDez(event) {
                 if (event.target.value == 2) {
-                    this.spinner = true;                      
+                    this.spinner = true;
                     this.scrollTrigger();
-                  
+
                 } else {
                     location.reload();
                 }
-            },    
+            },
             fetchData() {
                 let req = new Request(this.currentUrl);
                 fetch(req)
@@ -91,14 +91,14 @@
                     });
                 });
                 observer.observe(this.$refs.infinitescrolltrigger);
-            },  
-         
+            },
+
 
             next() {
                 this.currentUrl = this.nextUrl;
                 this.fetchData();
             },
-        
+
             setPokemonUrl(url) {
                 this.$emit('setPokemonUrl', url);
             }
@@ -106,28 +106,28 @@
         created() {
             this.currentUrl = this.apiUrl;
             this.fetchData();
-        },   
+        },
 
     }
 </script>
 
 <style lang="scss" scoped>
-.carregar {
-    text-align: center;
-    width: 100%;
-    float: left;
+    .carregar {
+        text-align: center;
+        width: 100%;
+        float: left;
 
-    button {
-        background: #0A2E50;
-        color:#fff;
-        border:none;
-        padding: 10px;
-        font-size: 1rem;
-        margin: 30px 0;
-        border-radius: 5px;
-        cursor: pointer;
+        button {
+            background: #0A2E50;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            font-size: 1rem;
+            margin: 30px 0;
+            border-radius: 5px;
+            cursor: pointer;
+        }
     }
-}
 
     .list {
         display: grid;
@@ -198,4 +198,27 @@
             cursor: pointer;
         }
     }
+
+       @media (max-width: 768px) {
+            .list {
+                display: block;
+                float: left;
+                article {
+                    margin: 10px 0;
+                }
+            }
+
+            .searchbar {
+                width: 100%;
+                float: left;
+                display: flex;
+
+        input,
+        select {
+            width: 100%;
+        }
+
+   
+    }
+        }
 </style>
